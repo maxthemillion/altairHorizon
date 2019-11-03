@@ -48,6 +48,7 @@ class HorizonChartGenerator(object):
         ).encode(
             alt.X('x', scale=alt.Scale(zero=False, nice=False)),
             alt.Y(y, scale=alt.Scale(
+         
                 domain=self.domain), title='y'),
         )
         return base
