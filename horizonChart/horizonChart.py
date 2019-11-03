@@ -46,10 +46,16 @@ class HorizonChartGenerator(object):
             opacity=0.3,
             color=color
         ).encode(
-            alt.X('x', scale=alt.Scale(zero=False, nice=False)),
-            alt.Y(y, scale=alt.Scale(
-         
-                domain=self.domain), title='y'),
+            alt.X(
+                self.X,
+                axis=alt.Axis(labels=False, grid=False, ticks=False),
+                scale=alt.Scale(zero=False, nice=False)),
+            alt.Y(
+                y, 
+                scale=alt.Scale(domain=self.domain),
+                axis=alt.Axis(labels=False, grid=False, ticks=False),
+                title=None
+                ),
         )
         return base
 
