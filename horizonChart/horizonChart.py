@@ -7,7 +7,7 @@ class HorizonChartGenerator(object):
     def __init__(self, data: pd.DataFrame, X: str, Y: str, noLevels):
         self.data = data
         self.X = X
-        self.Y = Y
+        self.Y = Y 
         self.noLevels = noLevels
         self.domain = self._setDomain()
         self.offset = self._setOffset()
