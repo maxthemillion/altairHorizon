@@ -2,9 +2,8 @@ import altair as alt
 import pandas as pd
 import numpy as np
 
-
 class HorizonChartGenerator(object):
-    def __init__(self, data: pd.DataFrame, X: str, Y: str, noLevels):
+    def __init__(self, data: pd.DataFrame, X: str, Y: str, noLevels: int):
         self.data = data
         self.X = X
         self.Y = Y 
