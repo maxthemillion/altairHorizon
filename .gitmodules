@@ -1,0 +1,3 @@
+[submodule "altairThemes"]
+	path = altairThemes
+	url = https://github.com/maxthemillion/altairThemes.git
