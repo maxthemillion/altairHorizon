@@ -2,18 +2,23 @@ import altair as alt
 import pandas as pd
 import numpy as np
 
+
 class HorizonChartGenerator(object):
-    def __init__(self, data: pd.DataFrame, X: str, Y: str, noLevels: int):
+    def __init__(self, data: pd.DataFrame, X: str, Y: str, row: str, noLevels: int, chartTitle='', xAxisTitle='', yAxisTitle='', width=500, height=20):
         self.data = data
         self.X = X
-        self.Y = Y 
+        self.Y = Y
+        self.row = row
         self.noLevels = noLevels
         self.domain = self._setDomain()
         self.offset = self._setOffset()
-
-        self._transform()
-
+        self.chartTitle = chartTitle
+        self.xAxisTitle = xAxisTitle
+        self.yAxisTitle = yAxisTitle
+        self.width = width
+        self.height = height
         self.chart = None
+        self._transform()
 
     def _setDomain(self):
         lower = 0
@@ -48,13 +53,14 @@ class HorizonChartGenerator(object):
             alt.X(
                 self.X,
                 axis=alt.Axis(labels=False, grid=False, ticks=False),
-                scale=alt.Scale(zero=False, nice=False)),
+                scale=alt.Scale(zero=False, nice=False),
+                title=self.xAxisTitle),
             alt.Y(
-                y, 
+                y,
                 scale=alt.Scale(domain=self.domain),
                 axis=alt.Axis(labels=False, grid=False, ticks=False),
                 title=None
-                ),
+            ),
         )
         return base
 
@@ -68,6 +74,16 @@ class HorizonChartGenerator(object):
                 self._getLayer(
                     y=('neg_level'+str(i)),
                     color='red')
-                ]
+            ]
         self.chart = alt.layer(*layers)
+        
+        self.chart = self.chart\
+            .properties(
+                height=self.height,
+                width=self.width
+                )\
+            .facet(row=alt.Row(self.row, title=self.yAxisTitle))\
+            .properties(title=self.chartTitle)\
+            .configure_title(anchor='middle')
+
         return self.chart
